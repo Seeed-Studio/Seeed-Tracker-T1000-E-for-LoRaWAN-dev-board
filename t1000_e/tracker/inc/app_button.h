@@ -1,6 +1,6 @@
 
-#ifndef __APP_LORA_PACKET_H
-#define __APP_LORA_PACKET_H
+#ifndef __APP_BUTTON_H
+#define __APP_BUTTON_H
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -17,6 +17,9 @@ extern "C" {
 #define BUTTON_PRESS_THRICE     3
 
 #define APP_USER_SOS_NUM_MAX    30
+
+#define TRACKER_STATE_BIT7_SOS      0x40
+#define TRACKER_STATE_BIT8_USER     0x80
 
 extern uint8_t button_sos_type;
 extern bool sos_in_progress;

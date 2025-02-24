@@ -558,7 +558,7 @@ static void on_modem_tx_done( smtc_modem_event_txdone_status_t status )
 
     if( status == SMTC_MODEM_EVENT_TXDONE_CONFIRMED )
     {
-        if( event_state == 1 ) // alarm confirm
+        if( event_state == TRACKER_STATE_BIT8_USER ) // alarm confirm
         {
             app_beep_pos_s( );
         }
@@ -680,7 +680,7 @@ static void app_tracker_scan_result_send( void )
     int8_t battery = 0;
     int16_t ax = 0, ay = 0, az = 0;
 
-    if(( packet_policy == RETRY_STATE_1C ) || ( event_state == 1 ))
+    if(( packet_policy == RETRY_STATE_1C ) || ( event_state == TRACKER_STATE_BIT8_USER ))
     {
         confirm = true;
     }
@@ -714,7 +714,7 @@ static void app_tracker_scan_result_send( void )
         {
             tracker_scan_data_temp[0] = DATA_ID_UP_PACKET_SEN_BAT;
         }
-
+        
         tracker_scan_data_temp[1] = event_state;
         tracker_scan_data_temp[2] = battery;
         memcpyr( tracker_scan_data_temp + 3, ( uint8_t *)( &temp ), 2 );

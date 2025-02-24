@@ -116,7 +116,7 @@ void app_user_button_event_timeout_handler( void )
                     app_timer_stop( m_sos_cnt_event_timer_id );
                 }
 
-                app_tracker_new_run( 0x01 );
+                app_tracker_new_run( TRACKER_STATE_BIT8_USER );
                 app_led_sos_confirm( );
                 PRINTF( "\r\nCONFIRM_ALARM\r\n\r\n" );
             }
@@ -134,7 +134,7 @@ void app_user_button_event_timeout_handler( void )
 
                 if( button_sos_type == 0 ) // single
                 {
-                    app_tracker_new_run( 0x02 );
+                    app_tracker_new_run( TRACKER_STATE_BIT7_SOS );
                     app_beep_sos( );
                     app_led_sos_run( );
                     PRINTF( "\r\nSOS_SINGLE\r\n\r\n" );
@@ -147,7 +147,7 @@ void app_user_button_event_timeout_handler( void )
                         sos_in_progress = true;
                         app_timer_stop( m_sos_cnt_event_timer_id );
                         app_timer_start( m_sos_cnt_event_timer_id,  APP_TIMER_TICKS( 60000 ), NULL );
-                        app_tracker_new_run( 0x02 );
+                        app_tracker_new_run( TRACKER_STATE_BIT7_SOS );
                         app_beep_sos( );
                         app_led_sos_run( );
                         PRINTF( "\r\nSOS_ENTER\r\n\r\n" );
@@ -238,7 +238,7 @@ void app_user_sos_cnt_event_timeout_handler( void )
         else
         {
             app_timer_start( m_sos_cnt_event_timer_id,  APP_TIMER_TICKS( 60000 ), NULL );
-            app_tracker_new_run( 0x02 );
+            app_tracker_new_run( TRACKER_STATE_BIT7_SOS );
         }
     }
 }
@@ -311,7 +311,7 @@ void app_sos_continuous_toggle_on( void )
     sos_count = 0;
     app_timer_stop( m_sos_cnt_event_timer_id );
     app_timer_start( m_sos_cnt_event_timer_id,  APP_TIMER_TICKS( 60000 ), NULL );
-    app_tracker_new_run( 0x02 );
+    app_tracker_new_run( TRACKER_STATE_BIT7_SOS );
     app_beep_sos( );
     app_led_sos_run( );
     PRINTF( "\r\nSOS_ENTER\r\n\r\n" );
