@@ -62,7 +62,9 @@ void hal_mcu_init( void )
     hal_rng_init( );
     hal_usb_det_init( );
     hal_usb_cdc_init( );
+#ifdef APP_TRACKER
     hal_watchdog_init( );
+#endif
 }
 
 void hal_mcu_disable_irq( void )
@@ -111,7 +113,11 @@ void hal_mcu_set_sleep_for_ms( const int32_t milliseconds )
     do
     {
         int32_t time_sleep = 0;
+#ifdef APP_TRACKER
+        float time_sleep_max = NRFX_WDT_CONFIG_RELOAD_VALUE - 30000; // 60s
+#else
         float time_sleep_max = RTC_2_PER_TICK * RTC_2_MAX_TICKS;
+#endif
         if( time_counter > time_sleep_max )
         {
             time_sleep = time_sleep_max;
@@ -125,6 +131,9 @@ void hal_mcu_set_sleep_for_ms( const int32_t milliseconds )
 
         if( time_sleep > 50 )
         {
+#ifdef APP_TRACKER
+            hal_watchdog_reload( );
+#endif
             if( m_usb_detect )
             {
                 uint32_t current = hal_rtc_get_time_ms( );
