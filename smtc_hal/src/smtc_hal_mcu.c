@@ -35,8 +35,7 @@ void hal_usb_det_init( void )
 {
     hal_gpio_init_in( CHARGER_ADC_DET, HAL_GPIO_PULL_MODE_NONE, HAL_GPIO_IRQ_MODE_RISING_FALLING, &usb_irq );
     m_usb_detect = hal_gpio_get_value( CHARGER_ADC_DET );
-    if( m_usb_detect ) hal_usb_timer_init( );
-    else hal_usb_timer_uninit( );
+    hal_usb_timer_init( );
 }
 
 void hal_clock_init(void)
@@ -202,4 +201,10 @@ void memcpyr( uint8_t *dst, const uint8_t *src, uint16_t size )
 void hal_sleep_exit( void )
 {
     m_hal_sleep_break = true;
+}
+
+void app_error_fault_handler( uint32_t id, uint32_t pc, uint32_t info )
+{
+    hal_mcu_wait_ms( 200 );
+    NVIC_SystemReset( );
 }

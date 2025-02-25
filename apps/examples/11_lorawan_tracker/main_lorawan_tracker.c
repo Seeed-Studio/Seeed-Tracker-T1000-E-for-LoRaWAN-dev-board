@@ -227,6 +227,8 @@ int main( void )
     err_code = app_timer_init( );
     APP_ERROR_CHECK( err_code );
 
+    hal_mcu_wait_ms( 500 ); // wait for stable
+
     app_user_timers_init( );
     app_user_button_init( );
     app_ble_all_init( );
