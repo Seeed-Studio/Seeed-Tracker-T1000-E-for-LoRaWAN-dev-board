@@ -4,6 +4,7 @@
 #include "app_led.h"
 #include "app_beep.h"
 #include "app_button.h"
+#include "smtc_modem_api.h"
 
 APP_TIMER_DEF(m_button_event_timer_id);
 APP_TIMER_DEF(m_ble_adv_event_timer_id);
@@ -172,6 +173,13 @@ void app_user_button_event_timeout_handler( void )
                 if( ble_adv_flag == false )
                 {
                     ble_adv_flag = true;
+                    
+                    smtc_modem_status_mask_t modem_status;
+                    smtc_modem_get_status( 0, &modem_status );
+                    if(( modem_status & SMTC_MODEM_STATUS_JOINING ) == SMTC_MODEM_STATUS_JOINING )
+                    {
+                        app_led_breathe_stop( );
+                    }
 
                     if( sos_in_progress ) // stop SOS mode
                     {
@@ -196,6 +204,13 @@ void app_user_button_event_timeout_handler( void )
                     app_ble_advertising_stop( );
                     app_timer_stop( m_ble_adv_event_timer_id );
                     PRINTF( "\r\nBLE_ADV_STOP\r\n\r\n" );
+
+                    smtc_modem_status_mask_t modem_status;
+                    smtc_modem_get_status( 0, &modem_status );
+                    if(( modem_status & SMTC_MODEM_STATUS_JOINING ) == SMTC_MODEM_STATUS_JOINING )
+                    {
+                        app_led_breathe_start( );
+                    }
                 }
             }
             break;
@@ -216,6 +231,13 @@ void app_user_ble_adv_event_timeout_handler( void )
             app_led_idle( );
             app_ble_advertising_stop( );
             PRINTF( "\r\nBLE_ADV_TIMEOUT\r\n\r\n" );
+
+            smtc_modem_status_mask_t modem_status;
+            smtc_modem_get_status( 0, &modem_status );
+            if(( modem_status & SMTC_MODEM_STATUS_JOINING ) == SMTC_MODEM_STATUS_JOINING )
+            {
+                app_led_breathe_start( );
+            }
         }
     }
 }
