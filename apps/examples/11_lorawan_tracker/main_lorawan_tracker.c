@@ -1162,9 +1162,21 @@ void app_tracker_new_run( uint8_t event )
     if( tracker_scan_status != 0xff )
     {
         tracker_scan_status = 0;
-        smtc_modem_alarm_clear_timer( );
-        smtc_modem_alarm_start_timer( 1 );
-        hal_sleep_exit( );
+
+        smtc_modem_status_mask_t modem_status;
+        smtc_modem_get_status( 0, &modem_status );
+        if(( modem_status & SMTC_MODEM_STATUS_JOINED ) == SMTC_MODEM_STATUS_JOINED )
+        {
+            smtc_modem_alarm_clear_timer( );
+            smtc_modem_alarm_start_timer( 1 );
+            hal_sleep_exit( );
+        }
+        else
+        {
+            event_state = 0;
+            scan_result_num = 0;
+            PRINTF( "\r\nNOT JOINED, SKIP NEW TRACKING\r\n" );
+        }
     }
 }
 
