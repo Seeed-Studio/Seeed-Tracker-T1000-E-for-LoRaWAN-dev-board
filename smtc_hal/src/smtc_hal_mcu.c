@@ -142,6 +142,7 @@ void hal_mcu_set_sleep_for_ms( const int32_t milliseconds )
                     if( m_hal_sleep_break )
                     {
                         m_hal_sleep_break = false;
+                        last_sleep_loop = true;
                         break;
                     }
 
