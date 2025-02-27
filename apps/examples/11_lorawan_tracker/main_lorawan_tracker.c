@@ -1159,10 +1159,8 @@ bool app_send_frame( const uint8_t* buffer, const uint8_t length, bool tx_confir
 void app_tracker_new_run( uint8_t event )
 {
     event_state = event;
-    if( tracker_scan_status != 0xff )
+    if( tracker_scan_status == 0 ) // Not tracking is doing
     {
-        tracker_scan_status = 0;
-
         smtc_modem_status_mask_t modem_status;
         smtc_modem_get_status( 0, &modem_status );
         if(( modem_status & SMTC_MODEM_STATUS_JOINED ) == SMTC_MODEM_STATUS_JOINED )
@@ -1177,6 +1175,10 @@ void app_tracker_new_run( uint8_t event )
             scan_result_num = 0;
             PRINTF( "\r\nNOT JOINED, SKIP NEW TRACKING\r\n" );
         }
+    }
+    else
+    {
+        PRINTF( "\r\nTRACKING IS DOING, SKIP NEW ONE\r\n" );
     }
 }
 
