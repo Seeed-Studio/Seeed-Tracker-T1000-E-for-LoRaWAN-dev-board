@@ -228,15 +228,15 @@
       <file file_name="../../../../../../components/ble/nrf_ble_scan/nrf_ble_scan.c" />
       <file file_name="../../../../../../components/ble/common/ble_advdata.c" />
       <file file_name="../../../../../../components/ble/peer_manager/auth_status_tracker.c" />
-      <file file_name="E:/nRF5_SDK_17.1.0_ddde560/components/ble/common/ble_conn_params.c" />
-      <file file_name="E:/nRF5_SDK_17.1.0_ddde560/components/ble/common/ble_conn_state.c" />
-      <file file_name="E:/nRF5_SDK_17.1.0_ddde560/components/ble/ble_link_ctx_manager/ble_link_ctx_manager.c" />
-      <file file_name="E:/nRF5_SDK_17.1.0_ddde560/components/ble/common/ble_srv_common.c" />
-      <file file_name="E:/nRF5_SDK_17.1.0_ddde560/components/ble/peer_manager/gatt_cache_manager.c" />
-      <file file_name="E:/nRF5_SDK_17.1.0_ddde560/components/ble/peer_manager/gatts_cache_manager.c" />
-      <file file_name="E:/nRF5_SDK_17.1.0_ddde560/components/ble/peer_manager/id_manager.c" />
-      <file file_name="E:/nRF5_SDK_17.1.0_ddde560/components/ble/nrf_ble_gatt/nrf_ble_gatt.c" />
-      <file file_name="E:/nRF5_SDK_17.1.0_ddde560/components/ble/nrf_ble_qwr/nrf_ble_qwr.c" />
+      <file file_name="../../../../../../components/ble/common/ble_conn_params.c" />
+      <file file_name="../../../../../../components/ble/common/ble_conn_state.c" />
+      <file file_name="../../../../../../components/ble/ble_link_ctx_manager/ble_link_ctx_manager.c" />
+      <file file_name="../../../../../../components/ble/common/ble_srv_common.c" />
+      <file file_name="../../../../../../components/ble/peer_manager/gatt_cache_manager.c" />
+      <file file_name="../../../../../../components/ble/peer_manager/gatts_cache_manager.c" />
+      <file file_name="../../../../../../components/ble/peer_manager/id_manager.c" />
+      <file file_name="../../../../../../components/ble/nrf_ble_gatt/nrf_ble_gatt.c" />
+      <file file_name="../../../../../../components/ble/nrf_ble_qwr/nrf_ble_qwr.c" />
     </folder>
     <folder Name="nRF_SoftDevice">
       <file file_name="../../../../../../components/softdevice/common/nrf_sdh.c" />
