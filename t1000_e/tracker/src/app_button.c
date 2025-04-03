@@ -74,7 +74,10 @@ void app_user_button_event_timeout_handler( void )
             {
                 button_power = true;
                 hal_gpio_init_out( USER_LED_G, HAL_GPIO_SET );
-                while( hal_gpio_get_value( USER_BUTTON ) == 1 ); // Wait for button release, otherwise enter bootloader
+                while( hal_gpio_get_value( USER_BUTTON ) == 1 ) // Wait for button release, otherwise enter bootloader
+                {
+                    hal_gpio_init_out( USER_LED_R, HAL_GPIO_RESET );
+                }
                 hal_mcu_reset( );
             }
         }
@@ -107,15 +110,24 @@ void app_user_button_event_timeout_handler( void )
                     return;
                 }
 
+                smtc_modem_status_mask_t modem_status;
+                smtc_modem_get_status( 0, &modem_status );
+                if(( modem_status & SMTC_MODEM_STATUS_JOINING ) == SMTC_MODEM_STATUS_JOINING )
+                {
+                    PRINTF( "LORA_JOINING, SKIP_IT\r\n" );
+                    return;
+                }
+
                 if( sos_in_progress ) // stop SOS mode
                 {
                     sos_in_progress = false;
                     sos_status = false;
                     sos_count = 0;
-                    app_beep_idle( );
-                    app_led_idle( );
                     app_timer_stop( m_sos_cnt_event_timer_id );
                 }
+
+                app_beep_idle( );
+                app_led_idle( );
 
                 app_tracker_new_run( TRACKER_STATE_BIT8_USER );
                 app_led_sos_confirm( );
@@ -130,6 +142,14 @@ void app_user_button_event_timeout_handler( void )
                 if( ble_adv_flag == true )  // skip it when on ble adv mode
                 {
                     PRINTF( "BLE_ADV, SKIP_IT\r\n" );
+                    return;
+                }
+
+                smtc_modem_status_mask_t modem_status;
+                smtc_modem_get_status( 0, &modem_status );
+                if(( modem_status & SMTC_MODEM_STATUS_JOINING ) == SMTC_MODEM_STATUS_JOINING )
+                {
+                    PRINTF( "LORA_JOINING, SKIP_IT\r\n" );
                     return;
                 }
 
@@ -186,10 +206,11 @@ void app_user_button_event_timeout_handler( void )
                         sos_in_progress = false;
                         sos_status = false;
                         sos_count = 0;
-                        app_beep_idle( );
-                        app_led_idle( );
                         app_timer_stop( m_sos_cnt_event_timer_id );
                     }
+
+                    app_beep_idle( );
+                    app_led_idle( );
 
                     app_led_ble_cfg( );
                     app_ble_advertising_start( );

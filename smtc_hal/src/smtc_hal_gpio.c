@@ -168,6 +168,18 @@ uint32_t hal_gpio_get_value( uint32_t pin )
     }
 }
 
+uint32_t hal_gpio_get_output_value( uint32_t pin )
+{
+    if( nrf_gpio_pin_out_read( pin ))
+    {
+        return HAL_GPIO_SET;
+    }
+    else
+    {
+        return HAL_GPIO_RESET;
+    }
+}
+
 void hal_gpio_wait_for_state( uint32_t pin, hal_gpio_state_t state )
 {
     if( state == HAL_GPIO_RESET )

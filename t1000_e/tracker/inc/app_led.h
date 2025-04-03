@@ -17,6 +17,8 @@ enum APP_LED_STATE_E
     APP_LED_IDLE,
 };
 
+extern uint8_t app_led_state;
+
 /*!
  * @brief Init led module
  */

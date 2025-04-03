@@ -4,6 +4,7 @@
 #include "smtc_hal.h"
 #include "app_button.h"
 #include "app_led.h"
+#include "smtc_modem_api.h"
 
 APP_TIMER_DEF(m_led_event_timer_id);
 APP_TIMER_DEF(m_bat_event_timer_id);
@@ -278,6 +279,14 @@ void app_led_idle( void )
 void app_user_bat_event_timeout_handler( void )
 {
     app_timer_start( m_bat_event_timer_id,  APP_TIMER_TICKS( 3000 ), NULL );
+
+    smtc_modem_status_mask_t modem_status;
+    smtc_modem_get_status( 0, &modem_status );
+    if(( modem_status & SMTC_MODEM_STATUS_JOINING ) == SMTC_MODEM_STATUS_JOINING )
+    {
+        return;
+    }
+
     if( hal_gpio_get_value( CHARGER_ADC_DET )) // usb detect
     {
         if( hal_gpio_get_value( CHARGER_DONE ) == 0 ) // charge done
@@ -305,7 +314,7 @@ void app_user_bat_event_timeout_handler( void )
     else
     {
         hal_gpio_set_value( USER_LED_R, 0 );
-    }
+    }    
 }
 
 void app_led_bat_new_detect( uint32_t time )

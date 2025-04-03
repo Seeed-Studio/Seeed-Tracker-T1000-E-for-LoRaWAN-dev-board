@@ -330,10 +330,13 @@ static void on_modem_network_joined( void )
     smtc_modem_region_t region;
     ASSERT_SMTC_MODEM_RC( smtc_modem_get_region( stack_id, &region ));
 
-    app_beep_joined( );
-    app_led_breathe_stop( );
-    app_led_lora_joined( );
-    app_led_bat_new_detect( 3000 );
+    if( app_led_state != APP_LED_BLE_CFG )
+    {
+        app_beep_joined( );
+        app_led_breathe_stop( );
+        app_led_lora_joined( );
+        app_led_bat_new_detect( 3000 );
+    }
 
     if( adr_user_enable == false )
     {

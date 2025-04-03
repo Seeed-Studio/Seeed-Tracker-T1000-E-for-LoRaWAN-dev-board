@@ -141,12 +141,20 @@ int16_t sensor_lux_sample( void )
     int16_t lux = 0;
     uint16_t vcc_v = 0, lux_v = 0;
 
+    uint32_t led_r_temp = hal_gpio_get_output_value( USER_LED_R );
+    uint32_t led_g_temp = hal_gpio_get_output_value( USER_LED_G );
+    hal_gpio_set_value( USER_LED_R, 0 );
+    hal_gpio_set_value( USER_LED_G, 0 );
+
     hal_gpio_init_out( SENSE_POWER_EN, HAL_GPIO_SET );
     hal_adc_init( LUX_ADC_CHANNEL );
     hal_adc_sample( &vcc_v, &lux_v );
     lux = get_light_lv( lux_v );
     hal_adc_uninit( );
     hal_gpio_init_out( SENSE_POWER_EN, HAL_GPIO_RESET );
+
+    hal_gpio_set_value( USER_LED_R, led_r_temp );
+    hal_gpio_set_value( USER_LED_G, led_g_temp );
 
     return lux;
 }
