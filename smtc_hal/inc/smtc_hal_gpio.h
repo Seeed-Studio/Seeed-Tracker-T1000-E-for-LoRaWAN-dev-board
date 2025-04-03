@@ -95,6 +95,15 @@ void hal_gpio_toggle( uint32_t pin );
 uint32_t hal_gpio_get_value( uint32_t pin );
 
 /*!
+ * @brief Get gpio output value
+ * 
+ * @param [in] pin number of pin
+ * 
+ * @return gpio value
+ */
+uint32_t hal_gpio_get_output_value( uint32_t pin );
+
+/*!
  * @brief Get gpio and wait for state
  * 
  * @param [in] pin number of pin
