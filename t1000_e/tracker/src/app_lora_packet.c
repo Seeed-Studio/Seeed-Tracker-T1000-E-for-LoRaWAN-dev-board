@@ -60,7 +60,7 @@ void app_lora_packet_power_on_uplink( void )
 void app_lora_packet_downlink_decode( uint8_t *buf, uint8_t len )
 {
     uint8_t data_id = 0;
-    uint16_t temp_16 = 0;
+    uint32_t tmep_32 = 0;
     bool general_param_update = false;
 
     if( buf && len )
@@ -70,10 +70,13 @@ void app_lora_packet_downlink_decode( uint8_t *buf, uint8_t len )
         {
             case DATA_ID_DW_PACKET_TRACK_TYPE:
             {
-                general_param_update = true;
-                tracker_scan_type = buf[1];
-                app_param.hardware_info.pos_strategy = buf[1];
-                PRINTF( "tracker_scan_type = %u\r\n", tracker_scan_type );
+                if(( buf[1] >= 0 && buf[1] <= 1 ) || ( buf[1] >= 3 && buf[1] <= 7 ))
+                {
+                    general_param_update = true;
+                    tracker_scan_type = buf[1];
+                    app_param.hardware_info.pos_strategy = buf[1];
+                    PRINTF( "tracker_scan_type = %u\r\n", tracker_scan_type );
+                }
             }
             break;
 
@@ -107,13 +110,12 @@ void app_lora_packet_downlink_decode( uint8_t *buf, uint8_t len )
 
             case DATA_ID_DW_PACKET_INTEVAL_PARAM:
             {
-                // TODO
-                memcpyr(( uint8_t * )( &temp_16 ), buf + 3, 2 );
-                if( temp_16 )
+                memcpyr(( uint8_t * )( &tmep_32 ), buf + 3, 2 );
+                if(( tmep_32 >= 1 ) && ( tmep_32 <= ( 24 * 60 * 7 )))
                 {
                     general_param_update = true;
-                    tracker_periodic_interval = temp_16 * 60;
-                    app_param.hardware_info.pos_interval = temp_16;
+                    tracker_periodic_interval = tmep_32 * 60;
+                    app_param.hardware_info.pos_interval = tmep_32;
                     PRINTF( "tracker_periodic_interval= %u\r\n", tracker_periodic_interval );
                 }                
             }
@@ -121,12 +123,12 @@ void app_lora_packet_downlink_decode( uint8_t *buf, uint8_t len )
 
             case DATA_ID_DW_PACKET_BUZER:
             {
-                if( buf[1] )
+                if( buf[1] == 1 )
                 {
                     app_beep_lora_downlink( );
                     app_led_lora_downlink( );
                 }
-                else
+                else if( buf[1] == 0 )
                 {
                     app_beep_idle( );
                     app_led_idle( );

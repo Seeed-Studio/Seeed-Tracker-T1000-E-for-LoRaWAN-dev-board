@@ -2,7 +2,7 @@
 #include "app_board.h"
 BoardVersion_t BoardVersion = {
     .Fields.SwMajor = 1,
-    .Fields.SwMinor = 0,
+    .Fields.SwMinor = 1,
 
     .Fields.HwMajor = 1,
     .Fields.HwMinor = 1,

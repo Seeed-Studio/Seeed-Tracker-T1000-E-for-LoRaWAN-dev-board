@@ -737,7 +737,6 @@ ATEerror_t AT_LR_DR_MIN_set(const char *param) {
     switch(app_param.lora_info.ActiveRegion)
     {
         case LORAMAC_REGION_TTN_AS923_2:
-        case LORAMAC_REGION_AU915:
         case LORAMAC_REGION_AS923_1:
         case LORAMAC_REGION_AS923_2:
         case LORAMAC_REGION_AS923_3:
@@ -747,36 +746,32 @@ ATEerror_t AT_LR_DR_MIN_set(const char *param) {
         case LORAMAC_REGION_AS_GP_2:
         case LORAMAC_REGION_AS_GP_3:
         case LORAMAC_REGION_AS_GP_4:
+            if(DR_temp<3 || DR_temp>5)
+            {
+                return AT_PARAM_ERROR;                
+            }
+            break;
+        case LORAMAC_REGION_AU915:
             if(DR_temp<3 || DR_temp>6)
             {
                 return AT_PARAM_ERROR;                
             }
             break;
-        case LORAMAC_REGION_EU868:
-            if(DR_temp>6)
-            {
-                return AT_PARAM_ERROR;                
-            }
-            break; 
         case LORAMAC_REGION_US915:
             if(DR_temp<1 || DR_temp>4)
             {
                 return AT_PARAM_ERROR;                
             }
             break;  
+        case LORAMAC_REGION_EU868:
         case LORAMAC_REGION_KR920:
         case LORAMAC_REGION_IN865:
+        case LORAMAC_REGION_RU864:
             if(DR_temp>5)
             {
                 return AT_PARAM_ERROR;                
             }
-            break; 
-        case LORAMAC_REGION_RU864:
-            if(DR_temp>6)
-            {
-                return AT_PARAM_ERROR;                
-            }
-            break;                                                    
+            break;                                                 
         default:
             if(DR_temp>6)
             {
@@ -816,7 +811,6 @@ ATEerror_t AT_LR_DR_MAX_set(const char *param) {
     switch(app_param.lora_info.ActiveRegion)
     {
         case LORAMAC_REGION_TTN_AS923_2:
-        case LORAMAC_REGION_AU915:
         case LORAMAC_REGION_AS923_1:
         case LORAMAC_REGION_AS923_2:
         case LORAMAC_REGION_AS923_3:
@@ -826,36 +820,32 @@ ATEerror_t AT_LR_DR_MAX_set(const char *param) {
         case LORAMAC_REGION_AS_GP_2:
         case LORAMAC_REGION_AS_GP_3:
         case LORAMAC_REGION_AS_GP_4:
+            if(DR_temp<3 || DR_temp>5)
+            {
+                return AT_PARAM_ERROR;                
+            }
+            break;
+        case LORAMAC_REGION_AU915:
             if(DR_temp<3 || DR_temp>6)
             {
                 return AT_PARAM_ERROR;                
             }
             break;
-        case LORAMAC_REGION_EU868:
-            if(DR_temp>6)
-            {
-                return AT_PARAM_ERROR;                
-            }
-            break; 
         case LORAMAC_REGION_US915:
             if(DR_temp<1 || DR_temp>4)
             {
                 return AT_PARAM_ERROR;                
             }
             break;  
+        case LORAMAC_REGION_EU868:
         case LORAMAC_REGION_KR920:
         case LORAMAC_REGION_IN865:
+        case LORAMAC_REGION_RU864:
             if(DR_temp>5)
             {
                 return AT_PARAM_ERROR;                
             }
-            break; 
-        case LORAMAC_REGION_RU864:
-            if(DR_temp>6)
-            {
-                return AT_PARAM_ERROR;                
-            }
-            break;                                                    
+            break;                                                  
         default:
             if(DR_temp>6)
             {

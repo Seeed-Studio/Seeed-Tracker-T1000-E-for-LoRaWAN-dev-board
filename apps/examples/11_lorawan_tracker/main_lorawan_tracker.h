@@ -67,7 +67,7 @@ extern "C" {
 #define LORAWAN_DEFAULT_DATARATE SMTC_MODEM_ADR_PROFILE_CUSTOM
 
 #define LORAWAN_EU868_DR_MIN    0
-#define LORAWAN_EU868_DR_MAX    6
+#define LORAWAN_EU868_DR_MAX    5
 
 #define LORAWAN_US915_DR_MIN    1
 #define LORAWAN_US915_DR_MAX    4
@@ -76,7 +76,7 @@ extern "C" {
 #define LORAWAN_AU915_DR_MAX    6
 
 #define LORAWAN_AS923_DR_MIN    3
-#define LORAWAN_AS923_DR_MAX    6
+#define LORAWAN_AS923_DR_MAX    5
 
 #define LORAWAN_KR920_DR_MIN    0
 #define LORAWAN_KR920_DR_MAX    5
@@ -85,7 +85,7 @@ extern "C" {
 #define LORAWAN_IN865_DR_MAX    5
 
 #define LORAWAN_RU864_DR_MIN    0
-#define LORAWAN_RU864_DR_MAX    6
+#define LORAWAN_RU864_DR_MAX    5
 
 /*
  * -----------------------------------------------------------------------------
