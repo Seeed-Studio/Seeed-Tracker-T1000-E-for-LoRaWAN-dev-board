@@ -52,7 +52,13 @@ This is the application on T1000-E Development Board.
 
 * 11_lorawan_tracker - Join through OTAA, scan GNSS/Wifi/Beacon, send data to LNS, config parameter through SenseCAP APP
 
-# Development Tutorial:
+# Development Tutorial
 
 * https://wiki.seeedstudio.com/open_source_lorawan/
+
+# Hardware Support
+* https://www.seeedstudio.com/SenseCAP-Card-Tracker-T1000-E-for-LoRaWAN-p-6408.html
+
+# Note
+* This SDK not support T1000-E for meshtastic
 
