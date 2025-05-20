@@ -280,6 +280,11 @@ void app_user_bat_event_timeout_handler( void )
 {
     app_timer_start( m_bat_event_timer_id,  APP_TIMER_TICKS( 3000 ), NULL );
 
+    if( app_led_state == APP_LED_BLE_CFG )
+    {
+        return;
+    }
+
     smtc_modem_status_mask_t modem_status;
     smtc_modem_get_status( 0, &modem_status );
     if(( modem_status & SMTC_MODEM_STATUS_JOINING ) == SMTC_MODEM_STATUS_JOINING )

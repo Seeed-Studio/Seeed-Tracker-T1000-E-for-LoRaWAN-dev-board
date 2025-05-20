@@ -292,15 +292,23 @@ APP_MAIN:
 
 static void on_modem_reset( uint16_t reset_count )
 {
-    app_led_breathe_start( );
-
     HAL_DBG_TRACE_INFO( "Application parameters:\n" );
     HAL_DBG_TRACE_INFO( "  - LoRaWAN uplink Fport = %d\n", LORAWAN_APP_PORT );
     HAL_DBG_TRACE_INFO( "  - Confirmed uplink     = %s\n", ( LORAWAN_CONFIRMED_MSG_ON == true ) ? "Yes" : "No" );
 
     apps_modem_common_configure_lorawan_params( stack_id );
 
-    ASSERT_SMTC_MODEM_RC( smtc_modem_join_network( stack_id ) );
+    uint8_t ativation_mode;
+    ativation_mode = smtc_modem_get_activation_mode( stack_id );
+    if( ativation_mode == 0 ) // OTAA
+    {
+        app_led_breathe_start( );
+        ASSERT_SMTC_MODEM_RC( smtc_modem_join_network( stack_id ) );
+    }
+    else // ABP, manual run joined init
+    {
+        on_modem_network_joined( );
+    }
 }
 
 static void custom_lora_adr_compute( uint8_t min, uint8_t max, uint8_t *buf )
@@ -332,10 +340,14 @@ static void on_modem_network_joined( void )
 
     if( app_led_state != APP_LED_BLE_CFG )
     {
-        app_beep_joined( );
-        app_led_breathe_stop( );
-        app_led_lora_joined( );
-        app_led_bat_new_detect( 3000 );
+        uint8_t ativation_mode;
+        ativation_mode = smtc_modem_get_activation_mode( stack_id );
+        if( ativation_mode == 0 ) // OTAA
+        {
+            app_beep_joined( );
+            app_led_breathe_stop( );
+            app_led_lora_joined( );
+        }
     }
 
     if( adr_user_enable == false )
@@ -542,6 +554,8 @@ static void on_modem_network_joined( void )
         default:
         break;
     }
+
+    app_led_bat_new_detect( 3000 );
 
     app_lora_packet_power_on_uplink( );
 
