@@ -85,7 +85,7 @@ void app_user_beep_event_timeout_handler( void )
     {
         if( app_beep_state == APP_BEEP_SOS || app_beep_state == APP_BEEP_LORA_DOWNLINK )
         {
-            if( button_sos_type == 0 ) // SOS single
+            if( button_sos_type == 0 && app_beep_state == APP_BEEP_SOS ) // SOS single
             {
                 if(( hal_rtc_get_time_ms( ) - song_start ) > 3000 )
                 {
