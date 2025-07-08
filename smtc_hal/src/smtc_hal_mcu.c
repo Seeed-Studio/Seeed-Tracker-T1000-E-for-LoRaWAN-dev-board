@@ -160,6 +160,7 @@ void hal_mcu_set_sleep_for_ms( const int32_t milliseconds )
 #ifdef APP_TRACKER
                 app_user_run_process( );
 #endif
+                hal_usb_timer_uninit( );
                 hal_rtc_wakeup_timer_set_ms( time_sleep );
                 nrf_pwr_mgmt_run( );
             }
