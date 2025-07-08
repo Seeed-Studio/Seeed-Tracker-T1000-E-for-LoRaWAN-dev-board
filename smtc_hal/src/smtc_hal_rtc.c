@@ -8,7 +8,7 @@
 #if 0
 static const nrf_drv_rtc_t rtc_2 = NRF_DRV_RTC_INSTANCE( 2 );
 static nrf_drv_rtc_config_t rtc_config_2 = NRF_DRV_RTC_DEFAULT_CONFIG;
-static uint32_t rtc_2_tick_diff = 0;
+static uint64_t rtc_2_tick_diff = 0;
 
 static void rtc_2_handler( nrf_drv_rtc_int_type_t int_type )
 {    
@@ -28,20 +28,23 @@ void hal_rtc_init( void )
 
 uint32_t hal_rtc_get_time_s( void )
 {
-    double temp = nrf_drv_rtc_counter_get( &rtc_2 ) + rtc_2_tick_diff;
-    return temp * RTC_2_PER_TICK / 1000;
+    uint64_t temp = nrf_drv_rtc_counter_get( &rtc_2 ) + rtc_2_tick_diff;
+    temp = temp * RTC_2_PER_TICK / 1000;
+    return temp;
 }
 
 uint32_t hal_rtc_get_time_ms( void )
 {
-    double temp = nrf_drv_rtc_counter_get( &rtc_2 ) + rtc_2_tick_diff;
-    return temp * RTC_2_PER_TICK;
+    uint64_t temp = nrf_drv_rtc_counter_get( &rtc_2 ) + rtc_2_tick_diff;
+    temp = temp * RTC_2_PER_TICK;
+    return temp;
 }
 
 uint32_t hal_rtc_get_time_100us( void )
 {
-    double temp = nrf_drv_rtc_counter_get( &rtc_2 ) + rtc_2_tick_diff;
-    return temp * RTC_2_PER_TICK * 10;
+    uint64_t temp = nrf_drv_rtc_counter_get( &rtc_2 ) + rtc_2_tick_diff;
+    temp = temp * RTC_2_PER_TICK * 10;
+    return temp;
 }
 
 uint32_t hal_rtc_get_max_ticks( void )
@@ -67,7 +70,7 @@ void hal_rtc_wakeup_timer_stop( void )
 #if 1
 static const nrf_drv_rtc_t rtc_2 = NRF_DRV_RTC_INSTANCE( 2 );
 static nrf_drv_rtc_config_t rtc_config_2 = NRF_DRV_RTC_DEFAULT_CONFIG;
-static uint32_t rtc_2_tick_diff = 0;
+static uint64_t rtc_2_tick_diff = 0;
 
 static void rtc_2_handler( nrf_drv_rtc_int_type_t int_type )
 {
@@ -91,20 +94,23 @@ void hal_rtc_init( void )
 
 uint32_t hal_rtc_get_time_s( void )
 {
-    double temp = nrf_drv_rtc_counter_get( &rtc_2 ) + rtc_2_tick_diff;
-    return temp * RTC_2_PER_TICK / 1000;
+    uint64_t temp = nrf_drv_rtc_counter_get( &rtc_2 ) + rtc_2_tick_diff;
+    temp = temp * RTC_2_PER_TICK / 1000;
+    return temp;
 }
 
 uint32_t hal_rtc_get_time_ms( void )
 {
-    double temp = nrf_drv_rtc_counter_get( &rtc_2 ) + rtc_2_tick_diff;
-    return temp * RTC_2_PER_TICK;
+    uint64_t temp = nrf_drv_rtc_counter_get( &rtc_2 ) + rtc_2_tick_diff;
+    temp = temp * RTC_2_PER_TICK;
+    return temp;
 }
 
 uint32_t hal_rtc_get_time_100us( void )
 {
-    double temp = nrf_drv_rtc_counter_get( &rtc_2 ) + rtc_2_tick_diff;
-    return temp * RTC_2_PER_TICK * 10;
+    uint64_t temp = nrf_drv_rtc_counter_get( &rtc_2 ) + rtc_2_tick_diff;
+    temp = temp * RTC_2_PER_TICK * 10;
+    return temp;
 }
 
 uint32_t hal_rtc_get_max_ticks( void )
