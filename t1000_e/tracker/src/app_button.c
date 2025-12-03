@@ -371,6 +371,16 @@ void app_sos_continuous_toggle_off( void )
     PRINTF( "\r\nSOS_EXIT\r\n\r\n" );
 }
 
+void app_toggle_power_off(void)
+{
+    if( button_power ) 
+    {
+        button_power = false;
+        new_power_off = true;
+        app_beep_power_off( );
+    }
+}
+
 void app_user_power_off( void )
 {
     // stop lbm

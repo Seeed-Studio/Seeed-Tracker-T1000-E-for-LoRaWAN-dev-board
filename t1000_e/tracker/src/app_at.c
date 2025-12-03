@@ -1274,3 +1274,11 @@ ATEerror_t AT_WIFI_MAX_set(const char *param)
     return AT_OK;
 }
 /*------------------------AT+WIFI_MAX=?\r\n-------------------------------------*/
+
+/*------------------------AT+POWER_OFF\r\n-------------------------------------*/
+ATEerror_t AT_POWER_OFF_run(const char *param)
+{
+    app_toggle_power_off();
+    return AT_OK;
+}
+/*------------------------AT+POWER_OFF\r\n-------------------------------------*/

@@ -101,6 +101,7 @@ typedef enum eATEerror
 #define AT_TESTMODE_TYPE    "+TESTMODE_TYPE"
 #define AT_DISCONNECT       "+DISCONNECT"      
 #define AT_LBDADDR          "+LBDADDR"  
+#define AT_POWER_OFF        "+POWER_OFF"
 
 
 /**
@@ -582,6 +583,14 @@ ATEerror_t AT_WIFI_MAX_get(const char *param);
   * @retval AT_OK
   */
 ATEerror_t AT_WIFI_MAX_set(const char *param);
+
+/**
+ * @brief Power off the device
+ * 
+ * @param param 
+ * @return ATEerror_t 
+ */
+ATEerror_t AT_POWER_OFF_run(const char *param);
 
 #ifdef __cplusplus
 }

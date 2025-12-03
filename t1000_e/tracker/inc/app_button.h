@@ -49,6 +49,11 @@ void app_sos_continuous_toggle_off( void );
  */
 void app_user_power_off( void );
 
+/*!
+ * @brief Toggle Power off
+ */
+void app_toggle_power_off(void);
+
 #ifdef __cplusplus
 }
 #endif
