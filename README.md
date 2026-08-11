@@ -59,6 +59,10 @@ This is the application on T1000-E Development Board.
 # Hardware Support
 * https://www.seeedstudio.com/SenseCAP-Card-Tracker-T1000-E-for-LoRaWAN-p-6408.html
 
-# Note
-* This SDK not support T1000-E for meshtastic
 
+# ⚠️ IMPORTANT – FIRMWARE INCOMPATIBILITY
+This firmware is only for the T1000‑E LoRaWAN version.
+Do not flash it onto any T1000‑E Meshtastic device.
+Likewise, do not flash Meshtastic firmware onto this LoRaWAN device.
+Any cross‑flashing will permanently brick the device and make it unrecoverable.
+Always ensure you are using the correct firmware for your specific hardware variant.
